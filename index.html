@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMM AI Assistant</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.main-container{
+  display:flex;
+  width:90%;
+  max-width:1100px;
+  height:90vh;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+.sidebar{
+  width:35%;
+  background:#222;
+}
+.chat-section{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+}
+h2{
+  text-align:center;
+  color:#800000;
+}
+#chat-container{
+  flex:1;
+  background:#fff;
+  border-radius:15px;
+  padding:15px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+.message{
+  padding:10px 15px;
+  margin:5px 0;
+  border-radius:20px;
+  max-width:75%;
+  font-size:14px;
+}
+.user-msg{align-self:flex-end;background:#e4e6eb;}
+.bot-msg{align-self:flex-start;background:#e4e6eb;}
+.system-msg{align-self:flex-start;background:#eee;}
+
+#input-container{
+  display:flex;
+  margin-top:15px;
+  gap:8px;
+}
+#user-input{
+  flex:1;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+}
+#send-btn{
+  padding:12px 20px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  background:#800000;
+  color:#fff;
+}
+#send-btn:disabled{
+  opacity:0.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+  <div class="sidebar"></div>
+
+  <div class="chat-section">
+
+    <h2>TMM AI Assistant</h2>
+
+    <div id="chat-container"></div>
+
+    <div id="input-container">
+      <input id="user-input" placeholder="Type your message...">
+      <button id="send-btn" disabled>Send</button>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+/* ======================
+   CONFIG
+====================== */
+
+const API_CHAT = "http://127.0.0.1:8000/chat";
+
+
+/* ======================
+   FIXED JWT (TESTING)
+====================== */
+
+const JWT_TOKEN =
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImV4cCI6MTc3MDQxNzY3MiwiaWF0IjoxNzcwMzMxMjcyfQ.FrLeODGHnlXsfKgasqOxGXb-AgtqiWWE6XIyGtsOx641;
+
+
+/* ======================
+   ELEMENTS
+====================== */
+
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+
+
+/* ======================
+   HELPERS
+====================== */
+
+function appendMessage(text, cls){
+
+  const div = document.createElement("div");
+
+  div.className = "message " + cls;
+
+  div.innerText = text;
+
+  chatContainer.appendChild(div);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+
+function getHeaders(){
+
+  return {
+    "Content-Type":"application/json",
+    "Authorization":"Bearer " + JWT_TOKEN
+  };
+}
+
+
+/* ======================
+   SEND MESSAGE
+====================== */
+
+function sendMessage(msg){
+
+  appendMessage(msg,"user-msg");
+
+  const typing = document.createElement("div");
+  typing.className="message bot-msg";
+  typing.id="typing";
+  typing.innerText="Assistant is typing...";
+
+  chatContainer.appendChild(typing);
+
+
+  fetch(API_CHAT,{
+
+    method:"POST",
+
+    headers: getHeaders(),
+
+    body: JSON.stringify({
+      message: msg
+    })
+
+  })
+
+  .then(res=>{
+
+    if(res.status===401){
+      throw new Error("Unauthorized");
+    }
+
+    return res.json();
+  })
+
+  .then(data=>{
+
+    document.getElementById("typing")?.remove();
+
+    appendMessage(data.reply,"bot-msg");
+  })
+
+  .catch(err=>{
+
+    document.getElementById("typing")?.remove();
+
+    appendMessage("❌ Unauthorized / Invalid Token","system-msg");
+
+    console.error(err);
+  });
+}
+
+
+/* ======================
+   INPUT HANDLERS
+====================== */
+
+userInput.addEventListener("input",()=>{
+
+  sendBtn.disabled = userInput.value.trim()==="";
+});
+
+
+sendBtn.onclick = ()=>{
+
+  if(!userInput.value.trim()) return;
+
+  sendMessage(userInput.value.trim());
+
+  userInput.value="";
+};
+
+
+userInput.addEventListener("keydown",e=>{
+
+  if(e.key==="Enter"){
+
+    e.preventDefault();
+
+    sendBtn.click();
+  }
+});
+
+</script>
+
+
+</body>
+</html>

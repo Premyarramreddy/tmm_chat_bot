@@ -1,5 +1,7 @@
 Telugu Matchmakers Profile Setup Guide
 
+profile setup option will be present in the tmm exclusives 
+
 Profile Setup is a step by step process that users complete after Sign Up or Sign In to create a full matrimonial profile. Each completed page increases the profile completion percentage and improves matchmaking.
 
 Profile Setup Pages
@@ -21,3 +23,7 @@ If the user exits profile setup and comes back later, the process resumes from t
 Rules for Profile Setup
 
 Each page contributes ten percent to completion. The completion percentage is based on pages, not on individual fields. Mandatory fields must be filled to continue to the next page. Optional fields can be skipped. The profile completion percentage is displayed on the Home Page until it reaches one hundred percent.
+
+
+after completing profile setup that option will be disapper from tmm exclusives
+After completing profile setup user should complete profile verification must and stood.

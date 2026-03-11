@@ -11,6 +11,9 @@ Marital Status
 
 Gothram is optional.
 
+
+ user can change the details of religion by going to the setting page and to religion page where they can see the existing data and they can change that data based on their requirements
+
 If the user selects that they have children, the user must also enter how many children they have. If the user selects that they do not have children, the number of children field is not required and will not be enforced.
 
 When the user is on the Religion and Community page, the profile completion is twenty percent. After the user fills all mandatory fields and clicks Continue or Save and Complete Later, the profile completion becomes thirty percent and the user is navigated to the Profession and Education page.
