@@ -53,6 +53,15 @@ h2{
   max-width:75%;
   font-size:14px;
 }
+
+.sidebar{
+  width:35%;
+  background:url("Screenshot 2025-09-23 120756.png") no-repeat center/cover;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:30px;color:#f4d03f;
+  position:relative;
+}
 .user-msg{align-self:flex-end;background:#e4e6eb;}
 .bot-msg{align-self:flex-start;background:#e4e6eb;}
 .system-msg{align-self:flex-start;background:#eee;}
@@ -87,7 +96,8 @@ h2{
 
 <div class="main-container">
 
-  <div class="sidebar"></div>
+ <div class="sidebar">
+</div>
 
   <div class="chat-section">
 
@@ -117,8 +127,7 @@ const API_CHAT = "http://127.0.0.1:8000/chat";
 ====================== */
 
 const JWT_TOKEN =
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImV4cCI6MTc3MDQxNzY3MiwiaWF0IjoxNzcwMzMxMjcyfQ.FrLeODGHnlXsfKgasqOxGXb-AgtqiWWE6XIyGtsOx641;
-
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiInMTIxMmZqZmozJyIsImV4cCI6MTc4MDA2MTk3MywiaWF0IjoxNzc5OTc1NTczfQ.jIDlI3vcdZ0FNuxX6lI7QKCrVqfnEDrnNg9xmTC4dhQ";
 
 /* ======================
    ELEMENTS

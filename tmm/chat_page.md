@@ -21,7 +21,7 @@ Condition	Result
 User not logged in	Chat cannot be accessed
 No connections	Chat list will be empty
 Mutual connection exists	Chat features enabled
-User blocked or reported	Chat disabled
+User blocked or reported	Chat disable
 3. Chat Listing Page
 
 After tapping the Chat icon, users see the Chat Listing Page.
